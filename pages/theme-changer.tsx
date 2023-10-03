@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import Cookies from "js-cookie";
 
 export const ThemeChangerPage = () => {
   const [currentTheme, setCurrentState] = useState("light");
@@ -19,6 +20,8 @@ export const ThemeChangerPage = () => {
     console.log({ selectTheme });
 
     setCurrentState(selectTheme);
+
+    Cookies.set("theme", selectTheme);
   };
 
   return (
