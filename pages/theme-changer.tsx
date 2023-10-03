@@ -38,7 +38,7 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
   };
 
   useEffect(() => {
-    console.log("Coockies: ", Cookies.get("theme"));
+    //console.log("Coockies: ", Cookies.get("theme"));
   }, []);
 
   return (
