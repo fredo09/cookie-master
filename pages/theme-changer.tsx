@@ -17,8 +17,13 @@ import Cookies from "js-cookie";
 // - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from "next";
 
-const ThemeChangerPage: FC = (props) => {
-  const [currentTheme, setCurrentState] = useState("light");
+//Interface de props para el Funcional Components
+interface Props {
+  theme: string;
+}
+
+const ThemeChangerPage: FC<Props> = ({ theme }) => {
+  const [currentTheme, setCurrentState] = useState(theme);
 
   const handleChangeTheme = (event: ChangeEvent<HTMLInputElement>) => {
     const selectTheme = event.target.value;
@@ -30,8 +35,6 @@ const ThemeChangerPage: FC = (props) => {
 
   const onClick = async () => {
     const resp = await axios.get("/api/hello");
-
-    console.log(resp);
   };
 
   useEffect(() => {
@@ -72,9 +75,12 @@ const ThemeChangerPage: FC = (props) => {
  **/
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { theme = "light", name = "No name" } = req.cookies;
+
+  const validThemes = ["light", "custom", "dark"];
+
   return {
     props: {
-      theme,
+      theme: validThemes.includes(theme) ? theme : "dark",
       name,
     },
   };
